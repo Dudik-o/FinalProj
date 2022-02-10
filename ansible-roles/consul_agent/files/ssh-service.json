@@ -1,0 +1,21 @@
+{
+    "services": [
+      {
+        "id": "jenkins-agents",
+        "name": "jenkins-agents",
+        "tags": [
+          "primary"
+        ],
+        "port": 22,
+        "checks": [
+          {
+            "id": "tcp",
+        "name": "tcp-22",
+        "tcp": "localhost:22",
+            "interval": "5s",
+            "timeout": "20s"
+          }
+        ]
+      }
+    ]
+  }
