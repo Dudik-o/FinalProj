@@ -1,0 +1,14 @@
+node("agent2") {
+    def app
+    stage('Clone repository') {
+            checkout scm
+    stage('connect to cluster'){
+       sh 'aws eks --region=us-east-1 update-kubeconfig --name OpsSchool-Project'
+  }
+     stage('Ingress for Grafana'){
+       sh 'kubectl create -f grafana-ingress.yaml'
+  } 
+     stage('Ingress for prometheus') {
+        sh 'kubectl create -f prometheus-ingress.yaml'
+    }
+}
