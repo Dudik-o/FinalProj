@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: kandu
+  labels:
+    app: kandu
+spec:
+  containers:
+    - image: adi1ophir/project:latest
+      name: kandula-app
+      ports:
+        - containerPort: 5000
+      env:
+        - name: FLASK_ENV
+          value: development
+        - name: AWS_ACCESS_KEY_ID
+          value: xxxxx  
+        - name: AWS_SECRET_ACCESS_KEY
+          value: xxxxx  
+        - name: AWS_DEFAULT_REGION
+          value: us-east-1      

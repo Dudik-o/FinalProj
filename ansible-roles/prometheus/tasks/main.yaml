@@ -1,0 +1,79 @@
+---
+ - name: Create prometheus Group
+   group:
+    name: prometheus
+    state: present
+    system: yes
+
+ - name: Create prometheus User
+   user:
+    name: prometheus
+    shell: /sbin/nologin
+    system: yes
+    group: prometheus
+  
+ - name: Create prometheus Directories
+   file:
+    path: "{{ item }}"
+    state: directory
+    owner: prometheus
+    group: prometheus
+    mode: "775"
+   loop:
+    - /var/lib/prometheus
+    - /etc/prometheus/rules
+    - /etc/prometheus/rules.d
+    - /etc/prometheus/files_sd
+    - /tmp/prometheus
+
+    
+ - name: Extract prometheus
+   unarchive:
+    src: https://github.com/prometheus/prometheus/releases/download/v2.33.1/prometheus-2.33.1.linux-amd64.tar.gz
+    dest: /tmp/prometheus
+    remote_src: yes
+
+ - name: Install prometheus
+   apt:
+    name: prometheus
+    state: latest
+    update_cache: yes
+    
+ - name: Copy promtool 
+   copy: 
+    remote_src: True 
+    src: /tmp/prometheus/prometheus-2.33.1.linux-amd64/promtool
+    dest: /usr/local/bin/
+    
+ - name: Copy files
+   copy: 
+    remote_src: True 
+    src: "{{item}}"
+    dest: /etc/prometheus
+   loop:
+    - /tmp/prometheus/prometheus-2.33.1.linux-amd64/prometheus.yml
+    - /tmp/prometheus/prometheus-2.33.1.linux-amd64/consoles
+    - /tmp/prometheus/prometheus-2.33.1.linux-amd64/console_libraries
+
+ - name: Change file permission
+   file:
+    path: "{{ item }}"
+    owner: prometheus
+    group: prometheus
+   loop:
+    - /usr/local/bin/promtool
+    - /etc/prometheus/consoles
+    - /etc/prometheus/console_libraries
+
+ - name: copy prometheus.yml
+   copy:
+    src: prometheus.yml
+    dest: /etc/prometheus/prometheus.yml
+
+
+ - name: Enable prometheus
+   systemd:
+    daemon_reload: yes
+    name: prometheus
+    state: restarted
+    enabled: yes

@@ -1,0 +1,4 @@
+- name: Configure ssh credentials - ubuntu
+  template:
+     src: "credentials.j2"
+     dest: "/var/lib/jenkins/credentials.xml"

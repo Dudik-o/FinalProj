@@ -1,30 +1,28 @@
 kind: Ingress
 apiVersion: networking.k8s.io/v1
 metadata:
-  name: kandula-app
+  name: kandula
+  annotations:
+      ingress.kubernetes.io/rewrite-target: /
 spec:
   rules:
   - http:
       paths:
-      - path: /
-        pathType: Prefix
-        backend:
-          service:
-            name: prometheus-grafana
-            port:
-              number: 80
-  - http:
-      paths:
-      - path: /
+      - path: /kandu
         pathType: Prefix
         backend:
           service:
             name: kandu
             port:
               number: 5000
-  - http:
-      paths:
-      - path: /
+      - path: /prom
+        pathType: Prefix
+        backend:
+          service:
+            name: prometheus-grafana
+            port:
+              number: 80
+      - path: /grafana
         pathType: Prefix
         backend:
           service:

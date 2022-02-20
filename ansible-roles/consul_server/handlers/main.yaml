@@ -1,0 +1,10 @@
+---
+- name: restart dnsmasq
+  service:
+    name: dnsmasq
+    state: restarted
+
+- name: restart resolved.service
+  ansible.builtin.systemd:
+    state: restarted
+    name: systemd-resolved.service

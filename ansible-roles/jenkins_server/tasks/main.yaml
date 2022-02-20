@@ -1,0 +1,17 @@
+  - name: Configure nodes
+    template:
+      src: "config.j2"
+      dest: "/var/lib/jenkins/nodes/{{ item }}/config.xml"
+    loop: "{{ node_names }}"
+    loop_control:
+      index_var: index     
+
+  - name: Configure build
+    copy:
+      src: config.xml
+      dest: /var/lib/jenkins/jobs/kandula/config.xml
+
+  - name: restart_jenkins_service
+    service:
+     name: jenkins
+     state: restarted

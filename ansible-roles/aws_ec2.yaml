@@ -1,0 +1,19 @@
+plugin: aws_ec2
+regions:
+  - us-east-1
+filters:
+ tag:Project: final-project
+ tag:Name:
+  - jenkins_agent*
+  - jenkins_server
+  - consul_server*
+  - prometheus
+  - grafana
+compose:
+ ansible_host: private_ip_address
+groups:
+ jenkins_agents: "'jenkins_agent' in tags.Name"
+ jenkins_server: "'jenkins_server' in tags.Name"
+ consul_servers: "'consul_server' in tags.Name"
+ prometheus: "'prometheus' in tags.Name"
+ grafana: "'grafana' in tags.Name"

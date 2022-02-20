@@ -1,0 +1,102 @@
+---
+ - name: Install unzip
+   apt:
+    update_cache: yes
+    name: unzip
+
+ - name: Install Dnsmasq
+   package:
+    name: dnsmasq
+    state: present
+   tags: dnsmasq
+
+ - name: copy 10-consul
+   copy:
+    src: 10-consul
+    dest: /etc/dnsmasq.d/10-consul
+   notify: restart dnsmasq 
+
+ - name: copy resolved.conf
+   copy:
+    src: resolved.conf
+    dest: /etc/systemd/resolved.conf
+   notify: restart resolved.service
+
+ - name: Download Consul
+   become: yes
+   get_url:
+    url: https://releases.hashicorp.com/consul/1.8.5/consul_1.8.5_linux_amd64.zip
+    dest: /tmp/consul.zip
+
+ - name: Extract Consul
+   unarchive:
+    src: /tmp/consul.zip
+    dest: /tmp
+    remote_src: yes
+
+ - name: Make Consul Executable and relocate Consul binary file
+   copy:
+    src: /tmp/consul
+    dest: /usr/local/bin/consul
+    mode: '0777'
+    remote_src: yes
+
+ - name: Create Consul Group
+   group:
+    name: consul
+    state: present
+
+ - name: Create Consul User
+   user:
+    name: consul
+
+ - name: Create Consul Directories
+   file:
+    path: "{{ item }}"
+    state: directory
+    owner: consul
+    group: consul
+   loop:
+    - /opt/consul
+    - /etc/consul.d
+    - /run/consul
+
+ - name: copy config.json
+   copy:
+    src: config.json
+    dest: /etc/consul.d/config.json
+
+ - name: changing the advertise_addr to the IP of the host
+   lineinfile:
+    path: /etc/consul.d/config.json
+    regexp: "^(.*)advertise_addr(.*)$"
+    line: ' "advertise_addr": "{{ ansible_ssh_host }}",'
+
+ - name: copy consul.service
+   copy:
+    src: consul.service
+    dest: /etc/systemd/system/consul.service
+
+ - name: copy jenkins.json
+   copy:
+    src: ssh-service.json
+    dest: /etc/consul.d/jenkins.json
+   when: "'jenkins_server' in group_names"
+
+ - name: copy ssh-service.json
+   copy:
+    src: ssh-service.json
+    dest: /etc/consul.d/ssh-service.json
+   when: "'jenkins_agents' in group_names"
+   
+ - name: copy prom.json
+   copy:
+    src: prom.json
+    dest: /etc/consul.d/pron.json
+   when: "'prometheus' in group_names"
+
+ - name: Enable Consul service
+   systemd:
+    name: consul.service
+    enabled: yes
+    state: started

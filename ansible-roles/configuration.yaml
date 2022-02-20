@@ -1,0 +1,42 @@
+-
+  hosts: consul_servers
+  become: yes
+  roles:
+    - consul_server
+  vars:
+    ansible_ssh_user: ubuntu
+-
+  hosts: jenkins_agents
+  become: yes
+  roles:
+    - jenkins_agent
+    - consul_agent
+    - helm
+  vars:
+    ansible_ssh_user: ubuntu
+
+-
+  hosts: jenkins_server
+  become: yes
+  roles:
+    - jenkins_server
+  vars:
+    ansible_ssh_user: ubuntu
+
+-
+  hosts: grafana
+  become: yes
+  roles:
+    - consul_agent
+    - grafana
+  vars:
+    ansible_ssh_user: ubuntu
+
+-
+  hosts: prometheus
+  become: yes
+  roles:
+    - consul_agent
+    - prometheus
+  vars:
+    ansible_ssh_user: ubuntu

@@ -2,4 +2,5 @@
 *.terraform.lock.hcl
 *.pem
 id_rsa
-*.yaml
+*.tfstate
+yaml-ignore/

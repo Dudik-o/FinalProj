@@ -1,0 +1,61 @@
+---
+ - name: Add Dockers official GPG key
+   apt_key:
+     url: https://download.docker.com/linux/ubuntu/gpg
+     state: present
+ - name: add docker repository to apt
+   apt_repository:
+    repo: deb https://download.docker.com/linux/ubuntu bionic stable
+    state: present
+
+ - name: Install java and Docker
+   apt:
+    name: "{{item}}"
+    state: latest
+    update_cache: yes
+   loop:
+    - openjdk-11-jre-headless
+    - docker-ce
+    - docker-ce-cli
+    - containerd.io
+    - git
+    - awscli
+
+ - name: Add user to docker group
+   user:
+    name: ubuntu
+    groups: docker
+    append: yes
+   become: yes
+
+ - name: Start Docker service
+   service:
+    name: docker
+    state: started
+    enabled: yes
+
+ - name: Add an apt signing key for Kubernetes
+   apt_key:
+    url: https://packages.cloud.google.com/apt/doc/apt-key.gpg
+    state: present
+
+ - name: Adding apt repository for Kubernetes
+   apt_repository:
+    repo: deb https://apt.kubernetes.io/ kubernetes-xenial main
+    state: present
+    filename: kubernetes.list
+
+ - name: Install Kubernetes binaries
+   apt: 
+    name: "kubectl"
+    state: present
+    update_cache: yes
+
+ - name: Download trivy
+   get_url:
+    url: https://github.com/aquasecurity/trivy/releases/download/v0.18.3/trivy_0.18.3_Linux-64bit.deb
+    dest: /tmp/trivy_0.18.3_Linux-64bit.deb
+
+ - name: install trivy
+   apt:
+    deb: /tmp/trivy_0.18.3_Linux-64bit.deb
