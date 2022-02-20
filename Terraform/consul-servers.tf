@@ -55,19 +55,19 @@ resource "aws_security_group" "consul_servers" {
   }
 
   ingress {
-  from_port   = 8302
-  to_port     = 8302
-  protocol    = "tcp"
-  cidr_blocks = ["0.0.0.0/0"]
-  description = "Allow agent join from the world"
+    from_port   = 8302
+    to_port     = 8302
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+    description = "Allow agent join from the world"
   }
 
- ingress {
-  from_port   = 8600
-  to_port     = 8600
-  protocol    = "tcp"
-  cidr_blocks = ["0.0.0.0/0"]
-  description = "Allow DNS"
+  ingress {
+    from_port   = 8600
+    to_port     = 8600
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+    description = "Allow DNS"
   }
 
   ingress {
