@@ -5,6 +5,18 @@ node("agent2") {
     stage('connect to cluster'){
        sh 'aws eks --region=us-east-1 update-kubeconfig --name OpsSchool-Project'
   }
+     stage('Add repositories'){
+       sh 'helm repo add prometheus-community https://prometheus-community.github.io/helm-charts'
+  }
+     stage('Add repositories'){
+       sh 'helm repo add stable https://charts.helm.sh/stable'
+     }
+     stage('Update Helm repositories'){
+       sh 'helm repo update'
+  }
+   stage('Install Prometheus Kubernetes'){
+       sh 'helm install prometheus prometheus-community/kube-prometheus-stack'
+  } 
      stage('Ingress for Grafana'){
        sh 'kubectl create -f grafana-ingress.yaml'
   } 
