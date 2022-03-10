@@ -1,0 +1,48 @@
+---
+- name: "Update Repository cache"
+  apt:
+    update_cache: true
+    cache_valid_time: 3600
+    force_apt_get: true
+  become: yes
+
+- name: Install a elastic package from the internet
+  shell: wget https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-oss-7.10.2-amd64.deb
+  become: true
+
+- name: Install a elastic package from the internet
+  shell: dpkg -i elasticsearch-*.deb
+  become: true  
+
+- name: Install a kibana package from the internet
+  apt:
+   deb: https://artifacts.elastic.co/downloads/kibana/kibana-oss-7.10.2-amd64.deb
+  become: true
+
+- name: Add a line to kibana.yml
+  copy:
+   src: kibana.yml
+   dest: /etc/kibana/kibana.yml
+  become: true
+
+- name: Copy Elasticsearch config file
+  copy:
+    src: elasticsearch.yml
+    dest: /etc/elasticsearch/elasticsearch.yml
+  become: true
+
+- name: Enable elasticsearch
+  systemd:
+   name: elasticsearch
+   enabled: yes
+   state: started
+  become: true
+
+
+
+- name: Enable kibana
+  systemd:
+   name: kibana
+   enabled: yes
+   state: started
+  become: true

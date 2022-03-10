@@ -5,7 +5,7 @@ resource "aws_instance" "ansible-server" {
   subnet_id              = module.infra.public_subnets_id[0]
   vpc_security_group_ids = [aws_security_group.ansible-sg.id]
   key_name               = aws_key_pair.project_key.key_name
-  iam_instance_profile   = aws_iam_instance_profile.dynamic-inventory.name
+  iam_instance_profile   = aws_iam_instance_profile.dynamic-inventory_profile.name
   provisioner "file" {
     source      = var.key_file
     destination = "/home/ubuntu/.ssh/id_rsa"
@@ -23,7 +23,6 @@ resource "aws_instance" "ansible-server" {
       "sudo apt install python-pip -y",
       "sudo -H pip install boto3",
       "sudo -H pip install botocore",
-      "sudo -H pip install Jinja2",
       "sudo mkdir -p /opt/ansible/inventory",
       "sudo cp /home/ubuntu/ansible-roles/aws_ec2.yaml /opt/ansible/inventory",
       "sudo chmod 400 /home/ubuntu/.ssh/id_rsa",
@@ -41,7 +40,7 @@ resource "aws_instance" "ansible-server" {
     #bastion_host_key = file("${var.key_file}")
   }
   tags = {
-    Name = "Ansible Server"
+    Name = "Ansible"
   }
 }
 
@@ -77,20 +76,20 @@ resource "aws_iam_role" "dynamic-inventory" {
   assume_role_policy = file("${path.module}/templates/policies/assume-role.json")
 }
 
-resource "aws_iam_policy" "dynamic-inventory" {
+resource "aws_iam_policy" "dynamic-inventory_policy" {
   name        = "dynamic-inventory"
   description = "Allows Consul nodes to describe instances for joining."
   policy      = file("${path.module}/templates/policies/dynamic-inventory.json")
 }
 
-resource "aws_iam_policy_attachment" "dynamic-inventory" {
+resource "aws_iam_policy_attachment" "dynamic-inventory_policy_attachment" {
   name       = "dynamic-inventory"
   roles      = [aws_iam_role.dynamic-inventory.name]
-  policy_arn = aws_iam_policy.dynamic-inventory.arn
+  policy_arn = aws_iam_policy.dynamic-inventory_policy.arn
 }
 
 
-resource "aws_iam_instance_profile" "dynamic-inventory" {
+resource "aws_iam_instance_profile" "dynamic-inventory_profile" {
   name = "ansible-dynamic-inventory"
   role = aws_iam_role.dynamic-inventory.name
 }

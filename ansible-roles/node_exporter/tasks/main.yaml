@@ -1,0 +1,48 @@
+---
+ - name: Create node_exporter user
+   user:
+    name: node_exporter
+    create_home: no
+    shell: /bin/false
+
+ - name: Extract node exporter
+   ansible.builtin.unarchive:
+    src: https://github.com/prometheus/node_exporter/releases/download/v0.18.0/node_exporter-0.18.0.linux-amd64.tar.gz
+    dest: /tmp
+    remote_src: yes
+
+ - name: Copy Extract file
+   copy:
+    src: /tmp/node_exporter-0.18.0.linux-amd64/node_exporter
+    dest: /usr/local/bin/
+    remote_src: yes
+
+ - name: change /usr/local/bin/node_exporter owner
+   file:
+    path: /usr/local/bin/node_exporter
+    owner: node_exporter
+    mode: '500'
+
+ - name: Create node_exporter metrics file
+   file:
+    path: /var/lib/node_exporter/textfile_collector
+    state: directory
+    owner: node_exporter
+
+ - name: change /var/lib/node_exporter owner
+   file:
+    path: /var/lib/node_exporter
+    state: directory
+    owner: node_exporter
+
+ - name: copy node_exporter.service
+   copy:
+    src: node_exporter.service
+    dest: /etc/systemd/system/node_exporter.service
+
+ - name: Enable node_exporter.service
+   systemd:
+    name: node_exporter.service
+    enabled: yes
+    daemon_reload: yes
+    state: started

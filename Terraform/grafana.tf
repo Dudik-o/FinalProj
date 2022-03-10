@@ -5,7 +5,7 @@ resource "aws_instance" "grafana" {
   ami                    = var.ami
   instance_type          = var.instance_type
   subnet_id              = module.infra.private_subnets_id[0]
-  vpc_security_group_ids = [aws_security_group.grafana-sg.id]
+  vpc_security_group_ids = [aws_security_group.grafana-sg.id, aws_security_group.consul_servers.id]
   key_name               = aws_key_pair.project_key.key_name
   iam_instance_profile   = aws_iam_instance_profile.consul-join.name
   tags = {

@@ -9,6 +9,8 @@ filters:
   - consul_server*
   - prometheus
   - grafana
+  - elastic
+  - Ansible
 compose:
  ansible_host: private_ip_address
 groups:
@@ -17,3 +19,5 @@ groups:
  consul_servers: "'consul_server' in tags.Name"
  prometheus: "'prometheus' in tags.Name"
  grafana: "'grafana' in tags.Name"
+ elastic: "'elastic' in tags.Name"
+ Ansible: "'Ansible' in tags.Name"

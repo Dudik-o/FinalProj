@@ -8,5 +8,8 @@
     "leave_on_terminate": true,
     "retry_join": ["provider=aws tag_key=consul_server tag_value=true"],
     "enable_script_checks": true,
-    "server": false
+    "server": false,
+    "telemetry": {
+        "prometheus_retention_time": "10m"
+    }
 }

@@ -1,0 +1,17 @@
+- name: Install filebeat package from the internet
+  apt:
+   deb: https://artifacts.elastic.co/downloads/beats/filebeat/filebeat-oss-7.11.0-amd64.deb
+  become: true
+
+- name: copy filebeat.yml
+  template:
+   src: filebeat.j2
+   dest: /etc/filebeat/filebeat.yml
+  become: true
+
+- name: Enable Filebeat
+  systemd:
+   name: filebeat
+   enabled: yes
+   state: started
+  become: true

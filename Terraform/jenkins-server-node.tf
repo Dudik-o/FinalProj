@@ -1,13 +1,10 @@
 resource "aws_instance" "jenkins_server" {
-  #ami                  = "ami-094d440ab25e22b56"
-  ami           = "ami-07fdd1fb99f2ea3a6"
+  ami           = "ami-01723c653ff8c83fb"
   instance_type = var.instance_type
   key_name      = aws_key_pair.project_key.key_name
-  #security_groups      = [aws_security_group.jenkins.id]
   security_groups      = [aws_security_group.jenkins.id, aws_security_group.consul_servers.id]
   subnet_id            = module.infra.private_subnets_id[1]
-  iam_instance_profile = aws_iam_instance_profile.jenkins_role.name
-  #user_data              = file("${path.module}/templates/consulagent.txt")
+  iam_instance_profile = aws_iam_instance_profile.jenkins_role_profile.name
   tags = {
     Name = "jenkins_server"
   }
@@ -20,7 +17,7 @@ resource "aws_instance" "jenkins_node" {
   instance_type        = var.instance_type
   key_name             = aws_key_pair.project_key.key_name
   security_groups      = [aws_security_group.jenkins.id, aws_security_group.consul_servers.id]
-  iam_instance_profile = aws_iam_instance_profile.jenkins_role.name
+  iam_instance_profile = aws_iam_instance_profile.jenkins_role_profile.name
   subnet_id            = module.infra.private_subnets_id[count.index]
   tags = {
     Name = "jenkins_agent${count.index + 1}"
@@ -32,14 +29,14 @@ resource "aws_iam_role" "jenkins_role" {
   name               = "jenkins_role"
   assume_role_policy = file("${path.module}/templates/policies/assume-role.json")
 }
-resource "aws_iam_policy_attachment" "jenkins_role" {
+
+resource "aws_iam_policy_attachment" "jenkins_role_policy_attachment" {
   name       = "jenkins_role"
   roles      = [aws_iam_role.jenkins_role.name]
   policy_arn = "arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy"
 }
 
-
-resource "aws_iam_instance_profile" "jenkins_role" {
+resource "aws_iam_instance_profile" "jenkins_role_profile" {
   name = "opsschool-jenkins_role"
   role = aws_iam_role.jenkins_role.name
 }

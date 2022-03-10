@@ -1,0 +1,21 @@
+{
+    "services": [
+      {
+        "id": "grafana",
+        "name": "grafana",
+        "tags": [
+          "primary"
+        ],
+        "port": 3000,
+        "checks": [
+          {
+            "id": "tcp",
+        "name": "tcp-3000",
+        "tcp": "localhost:3000",
+            "interval": "5s",
+            "timeout": "20s"
+          }
+        ]
+      }
+    ]
+  }

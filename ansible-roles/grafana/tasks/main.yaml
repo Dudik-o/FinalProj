@@ -23,6 +23,21 @@
     update_cache: yes
     name: grafana
 
+ - name: Configure Datasource
+   template:
+    src: datasource.j2
+    dest: /etc/grafana/provisioning/datasources/datasource.yaml
+
+ - name: copy prometheus dashboard
+   copy:
+    src: dashboard.yaml
+    dest: /etc/grafana/provisioning/dashboards/dashboard.yaml
+
+ - name: copy prometheus dashboard
+   copy:
+    src: prometheus-dashboard.json
+    dest: /etc/grafana/provisioning/dashboards
+
  - name: Enable grafana-server
    systemd:
     name: grafana-server

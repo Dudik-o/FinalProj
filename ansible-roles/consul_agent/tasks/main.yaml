@@ -77,9 +77,9 @@
     src: consul.service
     dest: /etc/systemd/system/consul.service
 
- - name: copy jenkins.json
+ - name: copy jenkins_server.json
    copy:
-    src: ssh-service.json
+    src: jenkins_server.json
     dest: /etc/consul.d/jenkins.json
    when: "'jenkins_server' in group_names"
 
@@ -92,8 +92,20 @@
  - name: copy prom.json
    copy:
     src: prom.json
-    dest: /etc/consul.d/pron.json
+    dest: /etc/consul.d/prom.json
    when: "'prometheus' in group_names"
+
+ - name: copy elastic.json
+   copy:
+    src: elastic.json
+    dest: /etc/consul.d/elastic.json
+   when: "'elastic' in group_names"
+
+ - name: copy grafana.json
+   copy:
+    src: grafana.json
+    dest: /etc/consul.d/grafana.json
+   when: "'grafana' in group_names"
 
  - name: Enable Consul service
    systemd:

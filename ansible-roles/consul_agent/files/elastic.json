@@ -1,17 +1,17 @@
 {
     "services": [
       {
-        "id": "jenkins",
-        "name": "jenkins-8080",
+        "id": "Kibana",
+        "name": "Kibana",
         "tags": [
           "primary"
         ],
-        "port": 8080,
+        "port": 9200,
         "checks": [
           {
             "id": "tcp",
-        "name": "tcp-8080",
-        "tcp": "localhost:8080",
+        "name": "tcp-9200",
+        "tcp": "localhost:9200",
             "interval": "5s",
             "timeout": "20s"
           }
