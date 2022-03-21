@@ -49,3 +49,9 @@ scrape_configs:
          target_label: '__address__'
          regex: '(.*):(.*)'
          replacement: '$1:9100'
+
+  - job_name: 'kandula'
+    scrape_interval: 15s
+    static_configs:
+      - targets:
+        - 'kandu-metrics-default.service.consul:9100'

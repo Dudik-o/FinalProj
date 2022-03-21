@@ -2,7 +2,7 @@
 resource "aws_instance" "ansible-server" {
   ami                    = var.ami
   instance_type          = var.instance_type
-  subnet_id              = module.infra.public_subnets_id[0]
+  subnet_id              = module.infra.private_subnets_id[0]
   vpc_security_group_ids = [aws_security_group.ansible-sg.id]
   key_name               = aws_key_pair.project_key.key_name
   iam_instance_profile   = aws_iam_instance_profile.dynamic-inventory_profile.name
@@ -33,11 +33,11 @@ resource "aws_instance" "ansible-server" {
     ]
   }
   connection {
-    host        = self.public_ip
+    host        = self.private_ip
     private_key = file("${var.key_file}")
     user        = "ubuntu"
-    #bastion_host     = aws_instance.bastion.public_ip
-    #bastion_host_key = file("${var.key_file}")
+    bastion_host     = aws_instance.bastion.public_ip
+    bastion_host_key = file("${var.key_file}")
   }
   tags = {
     Name = "Ansible"
@@ -96,5 +96,5 @@ resource "aws_iam_instance_profile" "dynamic-inventory_profile" {
 
 
 output "ansible_server" {
-  value = aws_instance.ansible-server.public_ip
+  value = aws_instance.ansible-server.private_ip
 }

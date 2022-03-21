@@ -3,3 +3,5 @@
 *.pem
 id_rsa
 *.tfstate
+yaml-ignore/*
+ignore

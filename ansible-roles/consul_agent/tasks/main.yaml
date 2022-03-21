@@ -25,7 +25,7 @@
  - name: Download Consul
    become: yes
    get_url:
-    url: https://releases.hashicorp.com/consul/1.8.5/consul_1.8.5_linux_amd64.zip
+    url: https://releases.hashicorp.com/consul/1.11.4/consul_1.11.4_linux_amd64.zip
     dest: /tmp/consul.zip
 
  - name: Extract Consul

@@ -29,7 +29,6 @@ This project implements automation cloud infrastructure in AWS which include:
 	- Prometheus server
 	- node_exporter
 	- elastic and Kibana
-	- mySQL
 	- Filebeat
 
 

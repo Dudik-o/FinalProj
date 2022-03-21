@@ -1,8 +1,8 @@
 {
     "services": [
       {
-        "id": "Kibana",
-        "name": "Kibana",
+        "id": "elastic",
+        "name": "elastic",
         "tags": [
           "primary"
         ],

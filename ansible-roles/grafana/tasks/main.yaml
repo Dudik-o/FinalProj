@@ -23,19 +23,34 @@
     update_cache: yes
     name: grafana
 
- - name: Configure Datasource
+ - name: Configure Datasources
    template:
     src: datasource.j2
     dest: /etc/grafana/provisioning/datasources/datasource.yaml
 
- - name: copy prometheus dashboard
+ - name: copy dashboard.yaml
    copy:
     src: dashboard.yaml
     dest: /etc/grafana/provisioning/dashboards/dashboard.yaml
 
+ - name: copy kubernetes dashboard
+   copy:
+    src: kubernetes-dashboard.json
+    dest: /etc/grafana/provisioning/dashboards
+
  - name: copy prometheus dashboard
    copy:
     src: prometheus-dashboard.json
+    dest: /etc/grafana/provisioning/dashboards
+
+ - name: copy kandu-count dashboard
+   copy:
+    src: kandu-count.json
+    dest: /etc/grafana/provisioning/dashboards
+
+ - name: copy kandu-processing dashboard
+   copy:
+    src: kandu-processing.json
     dest: /etc/grafana/provisioning/dashboards
 
  - name: Enable grafana-server

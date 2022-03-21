@@ -4,7 +4,12 @@ datasources:
 - name: prometheus
   type: prometheus
   access: proxy
-  orgId: 1
-  url: http://{{ hostvars[groups['prometheus'][0]]['ansible_host']}}:9090
+  url: http://prometheus.service.consul:9090
   isDefault: true
+  editable: true
+- name: prometheus-kube
+  type: prometheus
+  access: proxy
+  url: http://prom-prometheus-operator-prometheus-default.service.consul:9090
+  isDefault: false
   editable: true

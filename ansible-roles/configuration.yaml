@@ -15,7 +15,6 @@
     - consul_agent
     - helm
     - node_exporter
-    - filebeat
   vars:
     ansible_ssh_user: ubuntu
 
@@ -25,7 +24,6 @@
   roles:
     - consul_agent
     - grafana
-    - filebeat
   vars:
     ansible_ssh_user: ubuntu
 
@@ -35,7 +33,6 @@
   roles:
     - consul_agent
     - prometheus
-    - filebeat
   vars:
     ansible_ssh_user: ubuntu
     
@@ -43,7 +40,6 @@
   hosts: jenkins_server
   become: yes
   roles:
-    - consul_agent
     - jenkins_server
   vars:
     ansible_ssh_user: ubuntu

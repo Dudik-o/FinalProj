@@ -59,3 +59,9 @@
  - name: install trivy
    apt:
     deb: /tmp/trivy_0.18.3_Linux-64bit.deb
+
+ - name: copy filebeat.yml
+   template:
+    src: filebeat.j2
+    dest: /home/ubuntu/filebeat.yaml
+   become: true

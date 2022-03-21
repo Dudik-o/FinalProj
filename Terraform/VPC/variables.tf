@@ -16,7 +16,7 @@ variable "owner_tag" {
 }
 
 variable "project_tag" {
-  default = "mid-project"
+  default = "Final-project"
   type    = string
 }
 
