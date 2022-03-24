@@ -11,7 +11,7 @@ This project implements automation cloud infrastructure in AWS which include:
 - Application loadbalncer to allow 8500 traffic to access the consul UI
 - Prometheus server(private subnet) and a loadbalncer to allow 9090 traffic
 - Grafna server(private subnet) and a loadbalncer to allow 3000 traffic
-- elastic server with kibana(private subnet)  and a loadbalncer to allow 5601 traffic
+- Elastic server with kibana(private subnet)  and a loadbalncer to allow 5601 traffic
 - EKS cluster with 4 nodes + YAML files to create secret, Deployment of 3 pods and a service
 
 
