@@ -43,14 +43,9 @@
     src: prometheus-dashboard.json
     dest: /etc/grafana/provisioning/dashboards
 
- - name: copy kandu-count dashboard
+ - name: copy kandula dashboard
    copy:
-    src: kandu-count.json
-    dest: /etc/grafana/provisioning/dashboards
-
- - name: copy kandu-processing dashboard
-   copy:
-    src: kandu-processing.json
+    src: Kandula.json
     dest: /etc/grafana/provisioning/dashboards
 
  - name: Enable grafana-server

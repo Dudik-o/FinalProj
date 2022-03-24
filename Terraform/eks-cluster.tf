@@ -3,15 +3,16 @@ module "eks" {
   version         = "17.24.0"
   cluster_name    = var.cluster_name
   cluster_version = var.kubernetes_version
-  subnets       = module.infra.private_subnets_id
+  subnets         = module.infra.private_subnets_id
 
   enable_irsa = true
 
   tags = {
-    Environment = "training"
-    GithubRepo  = "terraform-aws-eks"
-    GithubOrg   = "terraform-aws-modules"
-    Project = var.project_tag
+    Environment            = "training"
+    GithubRepo             = "terraform-aws-eks"
+    GithubOrg              = "terraform-aws-modules"
+    Project                = var.project_tag
+    cluster_create_timeout = "50m"
   }
 
   vpc_id = module.infra.vpc_id

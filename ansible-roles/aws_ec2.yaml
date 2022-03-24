@@ -11,6 +11,7 @@ filters:
   - grafana
   - elastic
   - Ansible
+  - Database
 compose:
  ansible_host: private_ip_address
 groups:

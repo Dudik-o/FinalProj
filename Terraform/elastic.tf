@@ -41,7 +41,7 @@ resource "aws_security_group" "elastic-sg" {
     to_port     = "9300"
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
-  }  
+  }
   ingress {
     from_port   = "5601"
     to_port     = "5601"

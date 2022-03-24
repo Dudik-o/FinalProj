@@ -3,11 +3,11 @@
 
 
 resource "aws_instance" "prometheus" {
-  ami                    = var.ami
-  instance_type          = var.instance_type
-  key_name               = aws_key_pair.project_key.key_name
-  subnet_id              = module.infra.private_subnets_id[1]
-  iam_instance_profile   = aws_iam_instance_profile.consul-join.name
+  ami                  = var.ami
+  instance_type        = var.instance_type
+  key_name             = aws_key_pair.project_key.key_name
+  subnet_id            = module.infra.private_subnets_id[1]
+  iam_instance_profile = aws_iam_instance_profile.consul-join.name
   security_groups      = [aws_security_group.prometheus-sg.id, aws_security_group.consul_servers.id]
   #vpc_security_group_ids = [aws_security_group.prometheus-sg.id]
   tags = {

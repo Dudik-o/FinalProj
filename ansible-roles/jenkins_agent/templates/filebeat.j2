@@ -28,7 +28,7 @@ data:
                 kubernetes.container.name: "filebeat"
         - decode_json_fields:
             fields: ["message"]
-            max_depth: 2
+            max_depth: 3
             target: ""
             overwrite_keys: true
             when:

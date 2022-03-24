@@ -1,7 +1,7 @@
 resource "aws_instance" "jenkins_server" {
-  ami           = "ami-01723c653ff8c83fb"
-  instance_type = var.instance_type
-  key_name      = aws_key_pair.project_key.key_name
+  ami                  = "ami-01723c653ff8c83fb"
+  instance_type        = var.instance_type
+  key_name             = aws_key_pair.project_key.key_name
   security_groups      = [aws_security_group.jenkins.id, aws_security_group.consul_servers.id]
   subnet_id            = module.infra.private_subnets_id[1]
   iam_instance_profile = aws_iam_instance_profile.jenkins_role_profile.name

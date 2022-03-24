@@ -33,9 +33,9 @@ resource "aws_instance" "ansible-server" {
     ]
   }
   connection {
-    host        = self.private_ip
-    private_key = file("${var.key_file}")
-    user        = "ubuntu"
+    host             = self.private_ip
+    private_key      = file("${var.key_file}")
+    user             = "ubuntu"
     bastion_host     = aws_instance.bastion.public_ip
     bastion_host_key = file("${var.key_file}")
   }
