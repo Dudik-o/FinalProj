@@ -1,5 +1,4 @@
 
-## need to add Port of Consul ##
 
 resource "aws_instance" "grafana" {
   ami                    = var.ami

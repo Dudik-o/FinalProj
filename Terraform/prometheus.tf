@@ -107,8 +107,6 @@ output "prometheus-LB" {
   value = aws_lb.ALB-prometheus.dns_name
 }
 
-
-
 output "prometheus" {
   value = aws_instance.prometheus.private_ip
 }
