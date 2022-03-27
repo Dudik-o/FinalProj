@@ -22,3 +22,4 @@ groups:
  grafana: "'grafana' in tags.Name"
  elastic: "'elastic' in tags.Name"
  Ansible: "'Ansible' in tags.Name"
+ Database: "'Database' in tags.Name"

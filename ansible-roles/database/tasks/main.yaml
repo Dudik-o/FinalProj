@@ -1,0 +1,51 @@
+---
+ - name: Install postgres
+   apt:
+    name: "{{item}}"
+    state: latest
+    update_cache: yes
+   loop:
+    - postgresql
+    - postgresql-contrib
+    - python3-psycopg2
+
+ - name: Enable postgres
+   systemd:
+    name: postgresql.service
+    enabled: yes
+    state: started
+   become: true
+
+ - name: Create database
+   postgresql_db:
+    name: kandula
+   become: true
+   become_user: postgres
+
+ - name: Create a schema
+   postgresql_schema:
+    db: kandula
+    name: kandula
+   become: true
+   become_user: postgres
+
+ - name: Create instance_shutdown table
+   postgresql_table:
+    db: kandula
+    table: instance_shutdown
+    columns: 
+    - Instance_id  VARCHAR(50) primary key
+    - ShutDown_time TIME
+   become: true
+   become_user: postgres
+
+ - name: Create shutdown_log table
+   postgresql_table:
+    db: kandula
+    table: shutdown_log
+    columns: 
+     - RUN_ID smallserial primary key
+     - Instance_id  VARCHAR(50) 
+     - Time timestamp
+   become: true
+   become_user: postgres

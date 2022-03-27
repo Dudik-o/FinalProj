@@ -1,0 +1,21 @@
+{
+    "services": [
+      {
+        "id": "Database",
+        "name": "Database",
+        "tags": [
+          "primary"
+        ],
+        "port": 5432,
+        "checks": [
+          {
+            "id": "tcp",
+        "name": "tcp-5432",
+        "tcp": "localhost:5432",
+            "interval": "5s",
+            "timeout": "20s"
+          }
+        ]
+      }
+    ]
+  }

@@ -88,6 +88,12 @@
     src: ssh-service.json
     dest: /etc/consul.d/ssh-service.json
    when: "'jenkins_agents' in group_names"
+
+ - name: copy Database.json
+   copy:
+    src: Database.json
+    dest: /etc/consul.d/Database.json
+   when: "'Database' in group_names"
    
  - name: copy prom.json
    copy:
