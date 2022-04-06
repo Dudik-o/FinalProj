@@ -9,8 +9,6 @@ A small production environment for a Kandula web application
 * 
 ## Usage
 1. Clone the repository to your mechine:
-   <br />
-   ```
 
    
 2. Set your AWS credentials as environment vars:
