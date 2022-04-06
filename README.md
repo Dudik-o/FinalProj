@@ -8,7 +8,7 @@ A small production environment for a Kandula web application
 * <a href="https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html">AWS cli</a>
 * 
 ## Usage
-1. Clone the repository to your mechine:
+1. Clone the repository to your mechine
 
    
 2. Set your AWS credentials as environment vars:
