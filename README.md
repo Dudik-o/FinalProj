@@ -38,12 +38,6 @@ A basic CLI script that allows managment of the EC2 instaces in this project
 * <a href="https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-profiles.html">Configure AWS Profile</a>
 * A S3 Bucket ( needs to be update on the bucket_name varaible) - for the terraform state
 
-## Usage
-1. Clone the repository to your mechine
 
-   
-2. Set your AWS credentials as environment vars:
-   <br />
-   ```
 
 
