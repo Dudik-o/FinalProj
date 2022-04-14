@@ -16,6 +16,21 @@ In the terraform folder you can find 3 modules;
       - ALB for the UI of the services
       - A private DNS hosted zone to serve the instances 
  3. EKS module(v17.24 from terraform registry) which includes 4 nodes
+
+### Ansible
+Except for the Ansible server itself all other installation and configurations are made by Ansible Roles:
+ - Consul Server and Agents
+ - Postgresql Server with Tables for kandula
+ - Elastic and Kibana server
+ - Grafana server
+ - Prometheus Server
+ - Filebeat agent
+ - Jenkins agents (Java, AWS CLI, Kubectl, helm, Trivy, updating IP address on the Jenkins server)
+ - Node Exporter
+
+### KANCLI
+A basic CLI script that allows managment of the EC2 instaces of this project 
+
       
 ## Prerequisites
 * <a href="https://learn.hashicorp.com/tutorials/terraform/install-cli">Teraform cli</a>
@@ -29,9 +44,5 @@ In the terraform folder you can find 3 modules;
 2. Set your AWS credentials as environment vars:
    <br />
    ```
-   export AWS_ACCESS_KEY_ID=EXAMPLEACCESSKEY
-   export AWS_SECRET_ACCESS_KEY=EXAMPLESECRETKEY
-   export AWS_DEFAULT_REGION=us-east-1
- 
- 
+
 
