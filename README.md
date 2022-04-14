@@ -14,6 +14,7 @@ In the terraform folder you can find 3 modules;
  2. servers module 
       - ec2 instances with specific security groups and IAM roles(according to the applications needs)
       - ALB for the UI of the services
+      - A private DNS hosted zone to serve the instances 
  3. EKS module(v17.24 from terraform registry) which includes 4 nodes
       
 ## Prerequisites
