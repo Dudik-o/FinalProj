@@ -4,7 +4,14 @@
 A small production environment for a Kandula web application on AWS
 
 ### Terraform
-
+3 modules are inclueded;
+ 1. VPC module 
+      - A VPC with 4 subnetes. 2 private and 2 public spreaded between 2 Avaliability zones.
+      - Routing Tables
+      - An internet Gateway
+      - 2 NAT for the private subnets
+      -
+      
 ## Prerequisites
 * <a href="https://learn.hashicorp.com/tutorials/terraform/install-cli">Teraform cli</a>
 * <a href="https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html">AWS cli</a>
