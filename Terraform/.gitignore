@@ -1,7 +1,0 @@
-*.terraform/
-*.terraform.lock.hcl
-*.pem
-id_rsa
-*.tfstate
-yaml-ignore/*
-ignore
