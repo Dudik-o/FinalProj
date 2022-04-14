@@ -4,13 +4,17 @@
 A small production environment for a Kandula web application on AWS
 
 ### Terraform
-3 modules are inclueded;
+In the terraform folder you can find 3 modules;
+
  1. VPC module 
       - A VPC with 4 subnetes; 2 private and 2 public spreaded between 2 Avaliability zones.
       - Routing Tables
       - An internet gateway
       - 2 NAT gatways for the private subnets
-      -
+ 2. servers module 
+      - ec2 instances with specific security groups and IAM roles(according to the applications needs)
+      - ALB for the UI of the services
+ 3. EKS module(v17.24 from terraform registry) which includes 4 nodes
       
 ## Prerequisites
 * <a href="https://learn.hashicorp.com/tutorials/terraform/install-cli">Teraform cli</a>
