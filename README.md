@@ -29,7 +29,7 @@ Except for the Ansible server itself all other installation and configurations a
  - Node Exporter
 
 ### KANCLI
-A basic CLI script that allows managment of the EC2 instaces of this project 
+A basic CLI script that allows managment of the EC2 instaces in this project 
 
       
 ## Prerequisites
