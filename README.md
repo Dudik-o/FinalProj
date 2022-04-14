@@ -1,7 +1,9 @@
 # OpsSchool Final Project
 
 ## About The Project
-A small production environment for a Kandula web application
+A small production environment for a Kandula web application on AWS
+
+### Terraform
 
 ## Prerequisites
 * <a href="https://learn.hashicorp.com/tutorials/terraform/install-cli">Teraform cli</a>
@@ -19,3 +21,5 @@ A small production environment for a Kandula web application
    export AWS_SECRET_ACCESS_KEY=EXAMPLESECRETKEY
    export AWS_DEFAULT_REGION=us-east-1
  
+ 
+
