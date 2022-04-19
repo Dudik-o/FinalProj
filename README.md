@@ -33,7 +33,7 @@ A basic CLI script that allows managment of the EC2 instaces in this project
 
       
 ## Prerequisites
-* <a href="https://learn.hashicorp.com/tutorials/terraform/install-cli">Teraform cli</a>
+* <a href="https://learn.hashicorp.com/tutorials/terraform/install-cli">Terraform cli</a>
 * <a href="https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html">AWS cli</a>
 * <a href="https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-profiles.html">Configure AWS Profile</a>
 
