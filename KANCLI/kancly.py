@@ -3,7 +3,6 @@ import click
 import boto3
 import botocore
 
-
 client = boto3.client('ec2')
 
 @click.group()
