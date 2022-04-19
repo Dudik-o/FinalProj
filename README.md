@@ -2,7 +2,7 @@
 
 ## About The Project
 A small production environment for a Kandula web application on AWS
-
+* <a href="https://github.com/Dudik-o/kandula-project-app">Kandula App</a>
 ### Terraform
 In the terraform folder you can find 3 modules;
 
